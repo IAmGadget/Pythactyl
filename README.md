@@ -3,31 +3,31 @@ This python API wrapper is one of my first largest API wrapper's I have ever don
 
 ## Client
 
-  from Pythactyl import Client
+    from Pythactyl import Client
 
-  client = client.PterodactylClient('URL', 'API KEY')
+    client = client.PterodactylClient('URL', 'API KEY')
 
-  client.account() # Retrieves the current account's information
+    client.account() # Retrieves the current account's information
 
-  client.updateEmail('currentPassword', 'NewPassword', 'NewPassword')
+    client.updateEmail('currentPassword', 'NewPassword', 'NewPassword')
 
-  client.listServers() # This will return a JSON object of all the servers the client currently owns. (This is not including admin servers.)
+    client.listServers() # This will return a JSON object of all the servers the client currently owns. (This is not including admin servers.)
 
-  # Send a simple power action to your server
+    # Send a simple power action to your server
 
-  server = client.getServer('identifier')['attributes']['identifier']
+    server = client.getServer('identifier')['attributes']['identifier']
 
-  cliend.sendPowerAction(server, "start")
+    cliend.sendPowerAction(server, "start")
 
 ## Admin
 
-  from Pythactyl import admin
+    from Pythactyl import admin
 
-  admin = admin.PterodactylClient('URL', 'API KEY')
+    admin = admin.PterodactylClient('URL', 'API KEY')
 
-  user = admin.createUser('email@email.com', 'Bob', 'Simmons', root_admin=True)
+    user = admin.createUser('email@email.com', 'Bob', 'Simmons', root_admin=True)
 
-  admin.editUser(user['id'], username="INeedANewName")
+    admin.editUser(user['id'], username="INeedANewName")
 
 
 ## information
