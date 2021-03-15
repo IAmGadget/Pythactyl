@@ -1,6 +1,10 @@
 # Pythactyl
 This python API wrapper is one of my first largest API wrapper's I have ever done. I do expect there to be bugs. Feel free to contribute
 
+## Install
+
+    python -m pip install Pythactyl
+
 ## Client
 
     from Pythactyl import Client
