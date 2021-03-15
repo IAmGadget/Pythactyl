@@ -1,0 +1,12 @@
+README.md
+setup.py
+Pythactyl/__init__.py
+Pythactyl/admin.py
+Pythactyl/client.py
+Pythactyl/errors.py
+Pythactyl.egg-info/PKG-INFO
+Pythactyl.egg-info/SOURCES.txt
+Pythactyl.egg-info/dependency_links.txt
+Pythactyl.egg-info/entry_points.txt
+Pythactyl.egg-info/requires.txt
+Pythactyl.egg-info/top_level.txt
