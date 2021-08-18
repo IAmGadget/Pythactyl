@@ -1,5 +1,5 @@
 # Pythactyl
-This python API wrapper is one of my first largest API wrapper's I have ever done. I do expect there to be bugs. Feel free to contribute
+This Pterodactyl panel API wrapper is an unofficial wrapper. I made this in my free time and intend to improve as I go along 
 
 ## Install
 
@@ -34,8 +34,8 @@ This python API wrapper is one of my first largest API wrapper's I have ever don
     admin.editUser(user['id'], username="INeedANewName")
 
 
-## information
+## Information
 I will be uploading documentation when the wrapper is completed. If you wish to know more syntax, you'll either have to source code dive or DM me: Gadget#0975.
 
-## Contributors
-IAmGadget
+## Need help?
+Join my discord for more support on this wrapper: https://discord.gg/SBXBd8sC5f
