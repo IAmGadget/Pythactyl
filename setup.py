@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="Pythactyl",
-    version="1.1",
+    version="1.01",
     description="Pterodactyl panel API wrapper",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -25,7 +25,7 @@ setup(
     ],
     packages=["Pythactyl"],
     include_package_data=True,
-    install_requires=["feedparser", "requests"],
+    install_requires=["requests"],
     entry_points={
         "console_scripts": [
             "realpython=reader.__main__:main",
