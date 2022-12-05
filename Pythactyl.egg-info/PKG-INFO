@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: Pythactyl
-Version: 1.1
+Version: 2.0
 Summary: Pterodactyl panel API wrapper
 Home-page: https://github.com/iamgadget/Pythactyl
 Author: IAmGadget
@@ -18,7 +18,7 @@ This Pterodactyl panel API wrapper is an unofficial wrapper. I made this in my f
 
 ## Install
 
-    python -m pip install Pythactyl
+    python -m pip install git+https://github.com/IAmGadget/Pythactyl
 
 ## Client
 

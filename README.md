@@ -3,7 +3,7 @@ This Pterodactyl panel API wrapper is an unofficial wrapper. I made this in my f
 
 ## Install
 
-    python -m pip install Pythactyl
+    python -m pip install git+https://github.com/IAmGadget/Pythactyl
 
 ## Client
 

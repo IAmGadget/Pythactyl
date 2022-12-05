@@ -1,5 +1,4 @@
 import requests
-from errors import PermissionsMissing
 
 class PterodactylClient(object):
     def __init__(self, url, api_key):
