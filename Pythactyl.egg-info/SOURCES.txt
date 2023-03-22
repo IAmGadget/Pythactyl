@@ -1,10 +1,15 @@
 LICENSE
 README.md
 setup.py
+Pythactyl/Admin.py
+Pythactyl/Client.py
+Pythactyl/Errors.py
 Pythactyl/__init__.py
 Pythactyl/admin.py
 Pythactyl/client.py
 Pythactyl/errors.py
+Pythactyl/objects.py
+Pythactyl/server.py
 Pythactyl.egg-info/PKG-INFO
 Pythactyl.egg-info/SOURCES.txt
 Pythactyl.egg-info/dependency_links.txt

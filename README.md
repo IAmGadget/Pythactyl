@@ -3,39 +3,33 @@ This Pterodactyl panel API wrapper is an unofficial wrapper. I made this in my f
 
 ## Install
 
-    python -m pip install git+https://github.com/IAmGadget/Pythactyl
+    python -m pip install pythactyl
 
 ## Client
 
-    from Pythactyl import Client
+    from Pythactyl.Client import PterodactylClient
+    
+    client = PterodactylClient(url="https://panel.address.com", api_key="clientAPI")
+    
+    personal = client.listServers()
+    
+    print([x for x.name in personal])
 
-    client = client.PterodactylClient('URL', 'API KEY')
-
-    client.account() # Retrieves the current account's information
-
-    client.updateEmail('currentPassword', 'NewPassword', 'NewPassword')
-
-    client.listServers() # This will return a JSON object of all the servers the client currently owns. (This is not including admin servers.)
-
-    # Send a simple power action to your server
-
-    server = client.getServer('identifier')['attributes']['identifier']
-
-    cliend.sendPowerAction(server, "start")
+    >> ['Fivem Server', 'Minecraft server awesome', 'Teamspeak 1.22']
 
 ## Admin
 
-    from Pythactyl import admin
+    from Pythactyl.Admin import PterodactylAdmin
 
-    admin = admin.PterodactylClient('URL', 'API KEY')
+    admin = PterodactylAdmin(url="https://panel.address.com", api_key="adminAPI"))
 
     user = admin.createUser('email@email.com', 'Bob', 'Simmons', root_admin=True)
 
-    admin.editUser(user['id'], username="INeedANewName")
+    admin.editUser(user.id, username="INeedANewName")
 
 
 ## Information
-I will be uploading documentation when the wrapper is completed. If you wish to know more syntax, you'll either have to source code dive or DM me: Gadget#0975.
+I will be uploading documentation when the wrapper is completed. If you wish to know more syntax, you'll either have to source code dive or DM me: Gadget#6181.
 
 ## Need help?
-Join my discord for more support on this wrapper: https://discord.gg/SBXBd8sC5f
+Join my discord for more support on this wrapper: https://discord.gg/gnpZRcYqcn

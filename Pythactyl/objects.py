@@ -21,7 +21,7 @@ class User:
         self.created_at = resp["created_at"]
 
     def __repr__(self):
-        return f"<Object User>"
+        return f"<Object User: {self.username}>"
 
 class Node:
     def __init__(self, resp):
@@ -47,7 +47,7 @@ class Node:
         self.updated_at = resp['updated_at']
         self.allocated_resources = resp['allocated_resources']
     def __repr__(self):
-        return "<Object Node>"
+        return f"<Object Node: {self.name}>"
 
 class NodeConfig:
     def __init__(self, resp: dict):
@@ -71,9 +71,9 @@ class Allocation:
         self.id = resp['id']
         self.ip = resp['ip']
         self.alias = resp['alias']
-        self.port = resp['port']
-        self.notes = resp['notes']
-        self.assigned = resp['assigned']
+        self.port: int = resp['port']
+        self.notes: str = resp['notes']
+        self.assigned: bool = resp['assigned']
 
 class Key:
     def __init__(self, identifier=None, description=None, allowed_ips=None, lastused=None, created_at=None, token=None):
@@ -132,7 +132,7 @@ class Server:
 class SFTP:
     def __init__(self, ip=None, port=None):
         self.ip = ip
-        self.por = port
+        self.port = port
 
 class ServerLimits:
     def __init__(self, memory=None, swap=None, disk=None, io=None, cpu=None):
@@ -175,8 +175,21 @@ class Nest:
         self.created_at = resp['created_at']
         self.updated_at = resp['updated_at']
 
-class Egg:
+class EggVariable:
     def __init__(self, resp):
+        self.id = resp['id']
+        self.egg_id = resp['egg_id']
+        self.name = resp['name']
+        self.description = resp['description']
+        self.env_variable = resp['env_variable']
+        self.default_value = resp['default_value']
+        self.user_viewable = resp['user_viewable']
+        self.rules = resp['rules']
+        self.created_at = resp['created_at']
+        self.updated_at = resp['updated_at']
+
+class Egg:
+    def __init__(self, resp: dict):
         self.id = resp['id']
         self.uuid = resp['uuid']
         self.name = resp['name']
@@ -186,9 +199,14 @@ class Egg:
         self.docker_image = resp['docker_image']
         self.stop_command = resp['config']['stop']
         self.startup_commmad = resp['startup']
-        self.priveleged = resp['script']['priveleged']
+        self.priveleged = resp['script']['privileged']
         self.install_script = resp['script']['install']
         self.container = resp['script']['container']
+        if resp.get("relationships"):
+            self.variables = []
+            for x in resp['relationships']['variables']['data']:
+                a = EggVariable(x['attributes'])
+                self.variables.append(a)
 
 
 class Relationship:

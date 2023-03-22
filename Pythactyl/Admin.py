@@ -260,12 +260,14 @@ class PterodactylAdmin(object):
             "egg": eggid,
             "docker_image": image,
             "startup": startup,
-            "enviroment": enviroment,
+            "environment": enviroment,
             "limits": limits,
             "feature_limits": feature_limits,
             "allocation": allocation
         }
         r = requests.post(self.url + "/servers", headers=self.headers, json=data)
+        if not r.status_code == 201:
+            return r.json()
         return Server(r.json()['attributes'])
 
     def suspendServer(self, serverid):
@@ -333,16 +335,16 @@ class PterodactylAdmin(object):
         return Nest(r.json()['attributes'])
 
     def listNestEggs(self, nestid, include_params=False):
-        r = requests.get(self.url + f"/nests/{nestid}{'?include=nest,servers,config,script,variables' if include_params else ''}", headers=self.headers)
-        print(r.json())
+        r = requests.get(self.url + f"/nests/{nestid}/eggs{'?include=nest,servers' if include_params else ''}", headers=self.headers)
         eggs = []
         for egg in r.json()['data']:
             eggs.append(Egg(egg['attributes']))
         return eggs
 
-    def getNestEgg(self, nestid, eggid, include_params=False):
+    def getNestEgg(self, nestid, eggid, include_params=True):
         r = requests.get(self.url + f"/nests/{nestid}/eggs/{eggid}{'?include=nest,servers,config,script,variables' if include_params else ''}", headers=self.headers)
         return Egg(r.json()['attributes'])
+        # return r.json()
 
 
 if __name__ == "__main__":

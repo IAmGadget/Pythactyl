@@ -1,6 +1,2 @@
-class PermissionsMissing(Exception):
-    pass
-class NotEnoughArugments(Exception):
-    pass
-class MissingData(Exception):
+class UserExists(Exception):
     pass

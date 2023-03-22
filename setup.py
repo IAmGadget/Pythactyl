@@ -10,13 +10,13 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="Pythactyl",
-    version="2.0",
+    version="2.17",
     description="Pterodactyl panel API wrapper",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/iamgadget/Pythactyl",
     author="IAmGadget",
-    author_email="info@iamgadget.tk",
+    author_email="info@iamgadget.co.uk",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
