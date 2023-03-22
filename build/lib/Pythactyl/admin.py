@@ -346,5 +346,6 @@ class PterodactylAdmin(object):
         return Egg(r.json()['attributes'])
         # return r.json()
 
+
 if __name__ == "__main__":
     print("I dont run. No use in trying to make me lol")
