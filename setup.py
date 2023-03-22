@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="Pythactyl",
-    version="2.17",
+    version="2.18",
     description="Pterodactyl panel API wrapper",
     long_description=README,
     long_description_content_type="text/markdown",

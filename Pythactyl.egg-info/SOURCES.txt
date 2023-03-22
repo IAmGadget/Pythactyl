@@ -9,7 +9,6 @@ Pythactyl/admin.py
 Pythactyl/client.py
 Pythactyl/errors.py
 Pythactyl/objects.py
-Pythactyl/server.py
 Pythactyl.egg-info/PKG-INFO
 Pythactyl.egg-info/SOURCES.txt
 Pythactyl.egg-info/dependency_links.txt
