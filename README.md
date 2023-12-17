@@ -32,4 +32,4 @@ This Pterodactyl panel API wrapper is an unofficial wrapper. I made this in my f
 I will be uploading documentation when the wrapper is completed. If you wish to know more syntax, you'll either have to source code dive or DM me: Gadget#6181.
 
 ## Need help?
-Join my discord for more support on this wrapper: https://discord.gg/gnpZRcYqcn
+Join my discord for more support on this wrapper: [Official discord support for Pythactyl](https://discord.gg/yAwYt4FD6E)
