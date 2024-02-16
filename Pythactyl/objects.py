@@ -1,6 +1,5 @@
 import requests
 
-from Pythactyl import Admin
 
 HEADERS = {
     "Accept": "application/json",
