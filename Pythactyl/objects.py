@@ -1,11 +1,5 @@
 import requests
 
-from Pythactyl import Admin
-
-HEADERS = {
-    "Accept": "application/json",
-    "Content-type": "application/json"
-}
 
 class User:
     def __init__(self, resp: dict):
@@ -14,11 +8,12 @@ class User:
         self.fname = resp["first_name"]
         self.lname = resp["last_name"]
         self.lang = resp["language"]
-        self.admin = resp["root_admin"]
-        self.id = resp["uuid"]
-        self.twofactor = resp["2fa"]
+        self.admin = resp["root_admin"] if resp.get("root_admin") else False
+        self.id = resp["uuid"] if resp.get("uuid") else resp["id"]
+        self.twofactor = resp["2fa"] if resp.get("2fa") else False
         self.type = "User"
-        self.created_at = resp["created_at"]
+        self.created_at = resp["created_at"] if resp.get("created_at") else None
+        self.updated_at = resp["updated_at"] if resp.get("updated_at") else None
 
     def __repr__(self):
         return f"<Object User: {self.username}>"
@@ -98,36 +93,40 @@ class Location:
 
 class Server:
     def __init__(self, resp):
-        self.id = resp['id']
-        self.identifier = resp['identifier']
-        self.uuid = resp['uuid']
-        self.name = resp['name']
-        self.node = resp['node']
-        self.description = resp['description']
-        self.memory = resp['limits']['memory']
-        self.swap = resp['limits']['swap']
-        self.disk_space = resp['limits']['disk']
-        self.io = resp['limits']['io']
-        self.cpu = resp['limits']['cpu']
-        self.thread = resp['limits']['threads']
-        self.oom_disabled = resp['limits']['oom_disabled']
+        self.id = resp['id'] if resp.get('id') else None
+        self.identifier = resp['identifier'] if resp.get('identifier') else None
+        self.uuid = resp['uuid'] if resp.get('uuid') else None
+        self.name = resp['name'] if resp.get('name') else None
+        self.node = resp['node'] if resp.get('node') else None
+        self.description = resp['description'] if resp.get('description') else None
+        self.memory = resp['limits']['memory'] if resp.get('limits') else None
+        self.swap = resp['limits']['swap'] if   resp.get('limits') else None
+        self.disk_space = resp['limits']['disk'] if resp.get('limits') else None
+        self.io = resp['limits']['io'] if resp.get('limits') else None
+        self.cpu = resp['limits']['cpu'] if resp.get('limits') else None
+        self.thread = resp['limits']['threads'] if resp.get('limits') else None
+        self.oom_disabled = resp['limits']['oom_disabled'] if resp.get('limits') else None
 
-        self.databases = resp['feature_limits']['databases']
-        self.allocation = resp['feature_limits']['allocations']
-        self.backups = resp['feature_limits']['backups']
-        self.owner_id = resp['user']
-        self.node_id = resp['node']
-        self.allocation_id = resp['allocation']
-        self.egg_id = resp['egg']
+        self.databases = resp['feature_limits']['databases'] if resp.get('feature_limits') else None
+        self.allocation = resp['feature_limits']['allocations'] if resp.get('feature_limits') else None
+        self.backups = resp['feature_limits']['backups'] if resp.get('feature_limits') else None
+        self.owner_id = resp['user'] if resp.get('user') else None
+        self.node_id = resp['node'] if resp.get('node') else None
+        self.allocation_id = resp['allocation'] if resp.get('allocation') else None
+        self.egg_id = resp['egg'] if resp.get('egg') else None
 
-        self.startup_command = resp['container']['startup_command']
-        self.image = resp['container']['image']
-        self.installed = resp['container']['installed']
-        self.enviroment = resp['container']['environment']
-        self.created_at = resp['created_at']
-        self.updated_at = resp['updated_at']
-        self.suspended = resp['suspended']
-
+        self.startup_command = resp['container']['startup_command'] if resp.get('container') else None
+        self.image = resp['container']['image'] if resp.get('container') else None
+        self.installed = resp['container']['installed'] if resp.get('container') else None
+        self.enviroment = resp['container']['environment'] if resp.get('container') else None
+        self.created_at = resp['created_at'] if resp.get('created_at') else None
+        self.updated_at = resp['updated_at'] if resp.get('updated_at') else None
+        self.suspended = resp['suspended'] if resp.get('suspended') else None
+        self.is_owner = resp['server_owner'] if resp.get('server_owner') else False
+    def __repr__(self):
+        return f"{self.identifier}"
+    def __str__(self):
+        return f"{self.name} - {self.identifier}"
 
 class SFTP:
     def __init__(self, ip=None, port=None):

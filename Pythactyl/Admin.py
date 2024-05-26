@@ -1,11 +1,14 @@
 import requests
-from .objects import User, Node, NodeConfig, Allocation, Location, Server, HEADERS, Database, Nest, Egg
+from .objects import User, Node, NodeConfig, Allocation, Location, Server, Database, Nest, Egg
 from .Errors import UserExists
 class PterodactylAdmin(object):
     def __init__(self, url, api_key):
         self.url = url + "/api/application"
         self.api_key = api_key
-        self.headers = HEADERS
+        self.headers = {
+            "Accept": "application/json",
+            "Content-type": "application/json"
+        }
         self.headers['Authorization'] = f"Bearer {self.api_key}"
 
     def listUsers(self):
@@ -18,6 +21,7 @@ class PterodactylAdmin(object):
 
     def getUser(self, userid: int):
         r = requests.get(self.url + "/users/" + str(userid), headers=self.headers)
+        print(r.content)
         data = r.json()['attributes']
         user = User(data)
         return user
@@ -194,6 +198,9 @@ class PterodactylAdmin(object):
     def listServers(self):
         r = requests.get(self.url + "/servers", headers=self.headers)
         _servers = []
+        print(r.content.strip())
+        if r.status_code == 404:
+            raise ConnectionError("Servers not found")
         for serv in r.json()['data']:
             _servers.append(Server(serv['attributes']))
         return _servers

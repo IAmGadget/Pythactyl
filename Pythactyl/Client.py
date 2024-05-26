@@ -1,29 +1,54 @@
+import json
+
 import requests
-from .objects import User, HEADERS
+
+from Pythactyl.Errors import PermissionsMissing
+from .objects import User, Node, NodeConfig, Allocation, Location, Server, Database, Nest, Egg, Key, \
+    Relationship, ServerLimits, FeatureLimits, SFTP
+
 
 class PterodactylClient(object):
     def __init__(self, url, api_key):
+        if url.endswith("/"):
+            url = url[:-1]
         self.url = url + "/api/client"
         self.api_key = api_key
-        self.headers = HEADERS
+        self.headers = {
+            "Accept": "application/json",
+            "Content-type": "application/json"
+        }
         self.headers['Authorization'] = f"Bearer {self.api_key}"
+
+    def __repr__(self):
+        try:
+            return f"<Pythactyl: {self.url} Account: {self.account().fname}>"
+        except:
+            return f"<Pythactyl: {self.url} Account: None>"
+
+    #####################
+    # ACCOUNT ENDPOINTS #
+    #####################
 
     def account(self):
         r = requests.get(self.url + "/account", headers=self.headers).json()
         r = r['attributes']
-        return User(
-            id=r['id'],
-            email=r['email'],
-            admin=r['admin'],
-            fname=r['first_name'],
-            lname=r['lname'],
-            lang=r['language'],
-            twofactor=self._check2fa()['data']  # This returns a QR code image
-        )
+        # return User(
+        #     id=r['id'],
+        #     email=r['email'],
+        #     admin=r['admin'],
+        #     fname=r['first_name'],
+        #     lname=r['lname'],
+        #     lang=r['language'],
+        #     twofactor=self._check2fa()['data']  # This returns a QR code image
+        # )
+        return User(r)
 
-    def _check2fa(self):
-        r = requests.get(self.url + "/account/two-factor", headers=self.headers)
-        return r.json()
+    def check2fa(self):
+        r = requests.get(self.url + "/account/two-factor", headers=self.headers).json()
+        if r.get("data"):
+            return True
+        else:
+            return False
 
     def updateEmail(self, email, password):
         data = {
@@ -41,7 +66,9 @@ class PterodactylClient(object):
         }
         r = requests.put(self.url + "/account/email", headers=self.headers, json=data)
         return r.status_code == 204
-
+    ############
+    # API KEYS #
+    ############
     def listApikeys(self):
         r = requests.get(self.url + "/account/api-keys", headers=self.headers).json()
         return [].append([x for x in r['data']])
@@ -54,7 +81,7 @@ class PterodactylClient(object):
         r = requests.post(self.url + "/account/api-keys", headers=self.headers, json=data).json()
         meta = r['meta']
         r = r['attributes']
-        return objects.Key(
+        return Key(
             identifer=r['identifier'],
             description=r['description'],
             allowed_ips=r['allowed_ips'],
@@ -69,57 +96,57 @@ class PterodactylClient(object):
             return {'error': 'An error has occured','tips': 'Check the code is correct and/or existing'}
         else:
             return r.status_code == 204
-    #       Servers
+
+    ###########
+    # Servers #
+    ###########
     def listServers(self):
         r = requests.get(self.url, headers=self.headers).json()
         _servers = []
         for server in r['data']:
             _relationships = []
-            for x in server['relationships']['allocations']['data']:
-                _relationships.append(
-                    objects.Relationship(x['attributes']['id'], x['attributes']['ip'], x['attributes']['ip_alias'],
-                                         x['attributes']['port'], x['attributes'], x['attributes']['notes'],
-                                         x['attributes']['is_default']))
-            _servers.append(objects.Server(
-                owner=server['owner'],
-                identifier=server['identifier'],
-                uuid=server['uuid'],
-                name=server['name'],
-                node=server['node'],
-                sftp=objects.SFTP(server['sftp_details']['ip'], server['sftp_details']['port']),
-                description=server['description'],
-                limits=objects.ServerLimits(server['limits']['memory'], server['limits']['swap'], server['limits']['disk'], server['limits']['io'], server['limits']['cpu']),
-                feature_limits=objects.FeatureLimits(server['feature_limits']['databases'], server['feature_limits']['allocations'], server['feature_limits']['backups']),
-                suspended=server['is_suspended'],
-                installing=server['is_installing'],
-                relationships=_relationships
-            ))
+            if server.get('relationships'):
+                for x in server['relationships']['allocations']['data']:
+                    _relationships.append(
+                        Relationship(x['attributes']['id'], x['attributes']['ip'], x['attributes']['ip_alias'],
+                                             x['attributes']['port'], x['attributes'], x['attributes']['notes'],
+                                             x['attributes']['is_default']))
+
+            # _servers.append(Server(server))
+            server = server['attributes']
+            _servers.append(Server(server))
         return _servers
 
     def getServer(self, identifier):
-        r = requests.get(self.url + "/servers/" + str(identifier), headers=self.headers)
-        return r.json()
+        r = requests.get(self.url + "/servers/" + str(identifier), headers=self.headers).json()
+        return Server(r['attributes'])
 
     def sendPowerAction(self, identifier, action):
         signals = ['start', 'stop','restart','kill']
         if action.lower() not in signals:
-            return {'error': 'Incorrect signal sent','available signals': signal}
+            return {'error': 'Incorrect signal sent','available signals': signals}
         data = {
             "signal": action
         }
         r = requests.post(self.url + "/servers/" + identifier + "/power", headers=self.headers, json=data)
-        return r
+        return r.status_code == 204
 
     def sendCommand(self, identifier, command):
         data = {
             "command": command
         }
         r = requests.post(self.url + "/servers/" + identifier + "/command", headers=self.headers, json=data)
-        return r
+        return r.status_code == 204
 
     def listDatabases(self, identifier):
-        r = requests.get(self.url + "/servers/" + str(identifier) + "/databases", headers=self.headers)
-        return r.json()
+        r = requests.get(self.url + "/servers/" + str(identifier) + "/databases", headers=self.headers).json()
+        if r.get('data') is None:
+            return []
+        dbs = []
+        for db in r['data']:
+            print(db)
+            dbs.append(Database(db['attributes']))
+        return dbs
 
     def createDatabase(self, identifier, db_name, remote_addr="%"):
         data = {
@@ -127,11 +154,11 @@ class PterodactylClient(object):
             "remote": remote_addr
         }
         r = requests.post(self.url + "/servers/" + str(identifier) + "/databases", headers=self.headers, json=data)
-        return r.json()
+        return Database(r.json()['attributes'])
 
-    def resetDatabasePassword(self, identifier, db_id):
+    def rotateDatabasePassword(self, identifier, db_id):
         r = requests.post(self.url + "/servers/" + str(identifier) + "/databases/" + db_id + "/rotate-password", headers=self.headers)
-        return r.json()
+        return Database(r.json()['attributes'])
 
     def removeDatabase(self, identifier, db_id):
         r = requests.delete(self.url + "/servers/" + str(identifier) + "/databases/" + db_id + "rotate-password", headers=self.headers)
@@ -144,6 +171,7 @@ class PterodactylClient(object):
         return r.json()
 
     def addSubuser(self, identifier, email, permissions=[]):
+
         if len(permissions) <= 0:
             raise PermissionsMissing("You must specify at least 1 permission node")
         data = {

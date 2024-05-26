@@ -1,5 +1,7 @@
 import requests
-from .objects import User, HEADERS
+from .objects import User, Node, NodeConfig, Allocation, Location, Server, HEADERS, Database, Nest, Egg, Key, \
+    Relationship, ServerLimits, FeatureLimits, SFTP
+
 
 class PterodactylClient(object):
     def __init__(self, url, api_key):
@@ -54,7 +56,7 @@ class PterodactylClient(object):
         r = requests.post(self.url + "/account/api-keys", headers=self.headers, json=data).json()
         meta = r['meta']
         r = r['attributes']
-        return objects.Key(
+        return Key(
             identifer=r['identifier'],
             description=r['description'],
             allowed_ips=r['allowed_ips'],
@@ -77,19 +79,19 @@ class PterodactylClient(object):
             _relationships = []
             for x in server['relationships']['allocations']['data']:
                 _relationships.append(
-                    objects.Relationship(x['attributes']['id'], x['attributes']['ip'], x['attributes']['ip_alias'],
+                    Relationship(x['attributes']['id'], x['attributes']['ip'], x['attributes']['ip_alias'],
                                          x['attributes']['port'], x['attributes'], x['attributes']['notes'],
                                          x['attributes']['is_default']))
-            _servers.append(objects.Server(
+            _servers.append(Server(
                 owner=server['owner'],
                 identifier=server['identifier'],
                 uuid=server['uuid'],
                 name=server['name'],
                 node=server['node'],
-                sftp=objects.SFTP(server['sftp_details']['ip'], server['sftp_details']['port']),
+                sftp=SFTP(server['sftp_details']['ip'], server['sftp_details']['port']),
                 description=server['description'],
-                limits=objects.ServerLimits(server['limits']['memory'], server['limits']['swap'], server['limits']['disk'], server['limits']['io'], server['limits']['cpu']),
-                feature_limits=objects.FeatureLimits(server['feature_limits']['databases'], server['feature_limits']['allocations'], server['feature_limits']['backups']),
+                limits=ServerLimits(server['limits']['memory'], server['limits']['swap'], server['limits']['disk'], server['limits']['io'], server['limits']['cpu']),
+                feature_limits=FeatureLimits(server['feature_limits']['databases'], server['feature_limits']['allocations'], server['feature_limits']['backups']),
                 suspended=server['is_suspended'],
                 installing=server['is_installing'],
                 relationships=_relationships
@@ -103,7 +105,7 @@ class PterodactylClient(object):
     def sendPowerAction(self, identifier, action):
         signals = ['start', 'stop','restart','kill']
         if action.lower() not in signals:
-            return {'error': 'Incorrect signal sent','available signals': signal}
+            return {'error': 'Incorrect signal sent','available signals': signals}
         data = {
             "signal": action
         }
