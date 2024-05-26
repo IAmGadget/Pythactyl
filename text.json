@@ -1,0 +1,219 @@
+{
+  "object": "server",
+  "attributes": {
+    "server_owner": true,
+    "identifier": "62996219",
+    "internal_id": 75,
+    "uuid": "62996219-f350-480b-b72e-0e41cf6f914a",
+    "name": "SE",
+    "node": "More oracle",
+    "is_node_under_maintenance": false,
+    "sftp_details": {
+      "ip": "node2.jgamingz.dev",
+      "port": 2022
+    },
+    "description": "",
+    "limits": {
+      "memory": 4068,
+      "swap": 0,
+      "disk": 10000,
+      "io": 500,
+      "cpu": 0,
+      "threads": null,
+      "oom_disabled": true
+    },
+    "invocation": "export WINEDLLOVERRIDES=\"mscoree=n,b;mshtml=n,b\"; wine /home/container/DedicatedServer64/SpaceEngineersDedicated.exe -path Z:\\\\home\\\\container\\\\config -console -ignorelastsession",
+    "docker_image": "ghcr.io/parkervcp/yolks:wine_latest",
+    "egg_features": [
+      "steam_disk_space"
+    ],
+    "feature_limits": {
+      "databases": 0,
+      "allocations": 0,
+      "backups": 0
+    },
+    "status": null,
+    "is_suspended": false,
+    "is_installing": false,
+    "is_transferring": false,
+    "relationships": {
+      "allocations": {
+        "object": "list",
+        "data": [
+          {
+            "object": "allocation",
+            "attributes": {
+              "id": 73,
+              "ip": "0.0.0.0",
+              "ip_alias": "132.226.215.215",
+              "port": 27016,
+              "notes": null,
+              "is_default": true
+            }
+          }
+        ]
+      },
+      "variables": {
+        "object": "list",
+        "data": [
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Server Name",
+              "description": "Name of the server, appears in Steam browser.",
+              "env_variable": "SERVER_NAME",
+              "default_value": "A Pterodactyl hosted Space Engineer Server",
+              "server_value": "A Pterodactyl hosted Space Engineer Server",
+              "is_editable": true,
+              "rules": "required|string|max:64"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "World Name",
+              "description": "Name of your world (and of your save folder)  !!!!! DO NOT EDIT OR SERVER WILL NOT START !!!!!",
+              "env_variable": "WORLD_NAME",
+              "default_value": "World",
+              "server_value": "World",
+              "is_editable": false,
+              "rules": "required|string|max:20"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Server Description",
+              "description": "Description of the game",
+              "env_variable": "SERVER_DESC",
+              "default_value": "A Pterodactyl hosted Space Engineer Server",
+              "server_value": "A Pterodactyl hosted Space Engineer Server",
+              "is_editable": true,
+              "rules": "required|string|max:200"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Game Mode",
+              "description": "Game Mode setting: Survival, Creative",
+              "env_variable": "SERVER_MODE",
+              "default_value": "Survival",
+              "server_value": "Survival",
+              "is_editable": true,
+              "rules": "required|string|in:Survival,Creative"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Maximum Players",
+              "description": "",
+              "env_variable": "MAX_PLAYERS",
+              "default_value": "4",
+              "server_value": "4",
+              "is_editable": true,
+              "rules": "required|numeric|digits_between:1,16"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Enable Saving",
+              "description": "",
+              "env_variable": "SAVE_ENABLED",
+              "default_value": "true",
+              "server_value": "true",
+              "is_editable": true,
+              "rules": "required|string|in:true,false"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Auto Save Interval",
+              "description": "Time between auto saves specified in minutes",
+              "env_variable": "SAVE_INTERVAL",
+              "default_value": "5",
+              "server_value": "5",
+              "is_editable": true,
+              "rules": "required|numeric|digits_between:1,3"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Steam Port",
+              "description": "Steam Port",
+              "env_variable": "STEAM_PORT",
+              "default_value": "8766",
+              "server_value": "8766",
+              "is_editable": false,
+              "rules": "required|numeric|max:65535"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Enable Remote API",
+              "description": "Enable Remote API",
+              "env_variable": "REMOTEAPI_ENABLE",
+              "default_value": "false",
+              "server_value": "false",
+              "is_editable": true,
+              "rules": "required|string|in:true,false"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Remote API Port",
+              "description": "Remote API Port",
+              "env_variable": "REMOTEAPI_PORT",
+              "default_value": "8081",
+              "server_value": "8081",
+              "is_editable": false,
+              "rules": "required|numeric|max:65535"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Auto Update",
+              "description": "",
+              "env_variable": "AUTO_UPDATE",
+              "default_value": "1",
+              "server_value": "1",
+              "is_editable": true,
+              "rules": "required|boolean"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Enable Experimental Mode",
+              "description": "Enable Experimental Mode. Must be 'true' when using mods",
+              "env_variable": "EXPERIMENTAL_ENABLED",
+              "default_value": "false",
+              "server_value": "true",
+              "is_editable": true,
+              "rules": "required|string|in:true,false"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Enable In-Game Scripts",
+              "description": "Allow players to run In-Game Scripts",
+              "env_variable": "INGAMESCRIPTS_ENABLED",
+              "default_value": "false",
+              "server_value": "true",
+              "is_editable": true,
+              "rules": "required|string|in:true,false"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
