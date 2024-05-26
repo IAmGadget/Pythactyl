@@ -11,7 +11,7 @@
 <style>
   * {
     font-family: Calibri;
-    list-style:none;
+    list-style: none;
   }
   .border-solid {
     border: solid 1px black;
@@ -20,10 +20,9 @@
 <body>
   <section id="client-api">
     <h2>Objects</h2>
-    <uL id="objects" class="border-solid p-2">
+    <ul id="objects" class="border-solid p-2">
       <li id="user" class="dropdown">
-        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">User
-  <span class="caret"></span></button></h4>
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">User <span class="caret"></span></button></h4>
         <p>Returns a User object</p>
         <ul class="dropdown-menu">
           <li>username: str</li>
@@ -36,9 +35,223 @@
           <li>twofactor: bool</li>
           <li>type: str</li>
           <li>created_at: datetime.Object</li>
+          <li>updated_at: datetime.Object</li>
         </ul>
       </li>
-    </uL>
+      <li id="node" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Node <span class="caret"></span></button></h4>
+        <p>Returns a Node object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>uuid: str</li>
+          <li>public: bool</li>
+          <li>name: str</li>
+          <li>description: str</li>
+          <li>location_id: int</li>
+          <li>fqdn: str</li>
+          <li>scheme: str</li>
+          <li>behind_proxy: bool</li>
+          <li>maintenance_mode: bool</li>
+          <li>memory: int</li>
+          <li>memory_overallocate: int</li>
+          <li>disk: int</li>
+          <li>disk_overallocate: int</li>
+          <li>upload_size: int</li>
+          <li>daemon_listen: int</li>
+          <li>daemon_sftp: int</li>
+          <li>daemon_base: str</li>
+          <li>created_at: datetime.Object</li>
+          <li>updated_at: datetime.Object</li>
+          <li>allocated_resources: dict</li>
+        </ul>
+      </li>
+      <li id="node-config" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">NodeConfig <span class="caret"></span></button></h4>
+        <p>Returns a NodeConfig object</p>
+        <ul class="dropdown-menu">
+          <li>debug: bool</li>
+          <li>uuid: str</li>
+          <li>token_id: str</li>
+          <li>token: str</li>
+          <li>api_host: str</li>
+          <li>api_port: int</li>
+          <li>api_ssl: bool</li>
+          <li>ssl_cert: str</li>
+          <li>ssl_key: str</li>
+          <li>api_upload_limit: int</li>
+          <li>system: dict</li>
+          <li>sftp: int</li>
+          <li>allowed_mounts: list</li>
+          <li>remote_uri: str</li>
+        </ul>
+      </li>
+      <li id="allocation" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Allocation <span class="caret"></span></button></h4>
+        <p>Returns an Allocation object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>ip: str</li>
+          <li>alias: str</li>
+          <li>port: int</li>
+          <li>notes: str</li>
+          <li>assigned: bool</li>
+        </ul>
+      </li>
+      <li id="key" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Key <span class="caret"></span></button></h4>
+        <p>Returns a Key object</p>
+        <ul class="dropdown-menu">
+          <li>id: str</li>
+          <li>description: str</li>
+          <li>allowed_ips: list</li>
+          <li>lastusedat: datetime.Object</li>
+          <li>created_at: datetime.Object</li>
+          <li>token: str</li>
+        </ul>
+      </li>
+      <li id="location" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Location <span class="caret"></span></button></h4>
+        <p>Returns a Location object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>short: str</li>
+          <li>long: str</li>
+          <li>created_at: datetime.Object</li>
+          <li>updated_at: datetime.Object</li>
+        </ul>
+      </li>
+      <li id="server" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Server <span class="caret"></span></button></h4>
+        <p>Returns a Server object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>identifier: str</li>
+          <li>uuid: str</li>
+          <li>name: str</li>
+          <li>node: int</li>
+          <li>description: str</li>
+          <li>memory: int</li>
+          <li>swap: int</li>
+          <li>disk_space: int</li>
+          <li>io: int</li>
+          <li>cpu: int</li>
+          <li>thread: int</li>
+          <li>oom_disabled: bool</li>
+          <li>databases: int</li>
+          <li>allocation: int</li>
+          <li>backups: int</li>
+          <li>owner_id: int</li>
+          <li>node_id: int</li>
+          <li>allocation_id: int</li>
+          <li>egg_id: int</li>
+          <li>startup_command: str</li>
+          <li>image: str</li>
+          <li>installed: bool</li>
+          <li>enviroment: dict</li>
+          <li>created_at: datetime.Object</li>
+          <li>updated_at: datetime.Object</li>
+          <li>suspended: bool</li>
+          <li>is_owner: bool</li>
+        </ul>
+      </li>
+      <li id="sftp" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">SFTP <span class="caret"></span></button></h4>
+        <p>Returns an SFTP object</p>
+        <ul class="dropdown-menu">
+          <li>ip: str</li>
+          <li>port: int</li>
+        </ul>
+      </li>
+      <li id="server-limits" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">ServerLimits <span class="caret"></span></button></h4>
+        <p>Returns a ServerLimits object</p>
+        <ul class="dropdown-menu">
+          <li>memory: int</li>
+          <li>swap: int</li>
+          <li>disk: int</li>
+          <li>io: int</li>
+          <li>cpu: int</li>
+        </ul>
+      </li>
+      <li id="feature-limits" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">FeatureLimits <span class="caret"></span></button></h4>
+        <p>Returns a FeatureLimits object</p>
+        <ul class="dropdown-menu">
+          <li>databases: int</li>
+          <li>allocations: int</li>
+          <li>backups: int</li>
+        </ul>
+      </li>
+      <li id="database" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Database <span class="caret"></span></button></h4>
+        <p>Returns a Database object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>server_id: int</li>
+          <li>node_id: int</li>
+          <li>database: str</li>
+          <li>db_user: str</li>
+          <li>remote: str</li>
+          <li>max_connections: int</li>
+          <li>root_pass: str</li>
+          <li>host_id: int</li>
+          <li>host_port: int</li>
+          <li>host_username: str</li>
+          <li>host_node_id: int</li>
+          <li>created_at: datetime.Object</li>
+          <li>updated_at: datetime.Object</li>
+        </ul>
+      </li>
+      <li id="nest" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Nest <span class="caret"></span></button></h4>
+        <p>Returns a Nest object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>uuid: str</li>
+          <li>author: str</li>
+          <li>name: str</li>
+          <li>description: str</li>
+          <li>created_at: datetime.Object</li>
+          <li>updated_at: datetime.Object</li>
+        </ul>
+      </li>
+      <li id="egg" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Egg <span class="caret"></span></button></h4>
+        <p>Returns an Egg object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>uuid: str</li>
+          <li>name: str</li>
+          <li>nest: int</li>
+          <li>author: str</li>
+          <li>description: str</li>
+          <li>docker_image: str</li>
+          <li>stop_command: str</li>
+          <li>startup_commmad: str</li>
+          <li>priveleged: bool</li>
+          <li>install_script: str</li>
+          <li>container: dict</li>
+          <li>variables: list</li>
+        </ul>
+      </li>
+      <li id="relationship" class="dropdown">
+        <h4><button class="btn border-solid dropdown-toggle" type="button" data-toggle="dropdown">Relationship <span class="caret"></span></button></h4>
+        <p>Returns a Relationship object</p>
+        <ul class="dropdown-menu">
+          <li>id: int</li>
+          <li>ip: str</li>
+          <li>ip_alias: str</li>
+          <li>port: int</li>
+          <li>notes: str</li>
+          <li>default: bool</li>
+        </ul>
+      </li>
+    </ul>
   </section>
+  <script>
+    $(document).ready(function() {
+      $('.dropdown-toggle').dropdown();
+    });
+  </script>
 </body>
 </html>
