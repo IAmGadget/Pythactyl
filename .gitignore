@@ -1,1 +1,4 @@
 ./dist
+main_test.py
+text.json
+accounts.json

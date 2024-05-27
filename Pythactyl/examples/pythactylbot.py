@@ -43,6 +43,10 @@ async def ping(ctx):
 
 @bot.command()
 async def connect(ctx: Context):
+    if await checkUserExists(ctx.author.id): # If the user already exists in the Database then skip them to save duplicate data
+        await ctx.send(f'{ctx.author.display_name} You are already connected to Pterodactyl!')
+        return
+
     await ctx.send(f'{ctx.author.display_name} I have dm\'d you!')
     await ctx.author.send("Paste your user API Token here (DO NOT SHARE THIS WITH ANYONE)!")
     token = await bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=360.0)
