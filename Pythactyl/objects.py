@@ -3,6 +3,7 @@ import requests
 
 class User:
     def __init__(self, resp: dict):
+        self.id = resp["id"]
         self.email = resp["email"]
         self.username = resp["username"]
         self.fname = resp["first_name"]

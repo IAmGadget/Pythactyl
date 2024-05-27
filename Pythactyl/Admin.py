@@ -198,7 +198,6 @@ class PterodactylAdmin(object):
     def listServers(self):
         r = requests.get(self.url + "/servers", headers=self.headers)
         _servers = []
-        print(r.content.strip())
         if r.status_code == 404:
             raise ConnectionError("Servers not found")
         for serv in r.json()['data']:

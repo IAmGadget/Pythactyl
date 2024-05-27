@@ -6,6 +6,3 @@ admin = PterodactylAdmin("https://panel.jgamingz.dev", "ptla_46QJqIbvn9Rr597ujPy
 
 client = PterodactylClient("https://panel.jgamingz.dev", "ptlc_MFUZN3lTMcbxXalKs8Jcez2RJiSHBviZPKWsFAn1GNe")
 
-# client.listServers()
-x = admin.listUsers()
-print([a.username for a in x])
